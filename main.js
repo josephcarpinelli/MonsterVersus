@@ -144,10 +144,10 @@ To calculate the position of each point, we used a little bit of maths and trigo
 - [`Math.sin()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin) to calculate the y position of a point
 - [`Math.PI`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI) to calculate the angle of rotation in radians
 */
-const drawShape = function(xCoordinate, yCoordinate, radius, sides)
+const drawShape = function(xCoordinate, yCoordinate, radius, sides, canvas)
 {
     // move the canvas to the center position
-    ctx.translate(xCoordinate, yCoordinate);
+    canvas.translate(xCoordinate, yCoordinate);
     for (let sideIndex = 0; sideIndex < sides; sideIndex++)
     {
         // calculate the rotation
@@ -155,21 +155,21 @@ const drawShape = function(xCoordinate, yCoordinate, radius, sides)
         // for the first point move to
         if (sideIndex === 0)
         {
-            ctx.moveTo(radius * Math.cos(rotation),
+            canvas.moveTo(radius * Math.cos(rotation),
                        radius * Math.sin(rotation));
         }
         else
         {
             // for the rest dradiusaw a line
-            ctx.lineTo(radius * Math.cos(rotation),
+            canvas.lineTo(radius * Math.cos(rotation),
                        radius * Math.sin(rotation));
         }
     }
     // close path and stroke it
-    ctx.closePath();
-    ctx.stroke();
+    canvas.closePath();
+    canvas.stroke();
     // reset the translate position
-    ctx.resetTransform();
+    canvas.resetTransform();
 }
 
 
