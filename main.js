@@ -97,27 +97,27 @@ class GrassMonster extends Monster
 // ========================================================================= //
 // =========================== Functions =================================== //
 // ========================================================================= //
-function showTitleScreen()
+const showTitleScreen = function()
 {
     console.log("showTitleScreen()");
 }
 
-function showSelectionScreen()
+const showSelectionScreen = function()
 {
     console.log("showTitleScreen()");
 }
 
-function showStatsReviewScreen()
+const showStatsReviewScreen = function()
 {
     console.log("showTitleScreen()");
 }
 
-function showCompletionScreen(winningMonster)
+const showCompletionScreen = function(winningMonster)
 {
     console.log("showCompletionScreen()");
 }
 
-function showGameOverScreen()
+const showGameOverScreen = function()
 {
     console.log("showGameOverScreen(winningMonster)");
 }
@@ -144,7 +144,7 @@ To calculate the position of each point, we used a little bit of maths and trigo
 - [`Math.sin()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin) to calculate the y position of a point
 - [`Math.PI`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI) to calculate the angle of rotation in radians
 */
-function drawShape(xCoordinate, yCoordinate, radius, sides)
+const drawShape = function(xCoordinate, yCoordinate, radius, sides)
 {
     // move the canvas to the center position
     ctx.translate(xCoordinate, yCoordinate);
@@ -176,7 +176,7 @@ function drawShape(xCoordinate, yCoordinate, radius, sides)
 // ========================================================================= //
 // ============================= Main ====================================== //
 // ========================================================================= //
-function main()
+const main = function()
 {
     console.log("main()");
     // Title Screen.
