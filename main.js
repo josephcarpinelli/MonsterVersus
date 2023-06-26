@@ -41,3 +41,21 @@ class Monster
         }
     }
 }
+
+class HpMonster extends Monster
+{
+    constructor(hp, attack)
+    {
+        this.HP_BOOST = 1.15;
+        super(hp * this.HP_BOOST, attack);
+    }
+}
+
+class AttackMonster extends Monster
+{
+    constructor(hp, attack)
+    {
+        this.ATTACK_BOOST = 1.15;
+        super(hp, attack * this.ATTACK_BOOST);
+    }
+}
