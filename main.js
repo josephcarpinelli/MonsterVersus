@@ -3,13 +3,13 @@
 // ========================================================================= //
 class Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
         this.KO = false;
         this.MAX_HP = hp;
-        this.MAX_ATTACK = attack;
+        this.MAX_ATTACK = attack_power;
         this.hp = this.MAX_HP;
-        this.attack = attack;
+        this.attack_power = this.MAX_ATTACK;
     }
     attack(opposingMonster)
     {
@@ -48,27 +48,27 @@ class Monster
 
 class HpMonster extends Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
         this.HP_BOOST = 1.15;
-        super(hp * this.HP_BOOST, attack);
+        super(hp * this.HP_BOOST, attack_power);
     }
 }
 
 class AttackMonster extends Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
         this.ATTACK_BOOST = 1.15;
-        super(hp, attack * this.ATTACK_BOOST);
+        super(hp, attack_power * this.ATTACK_BOOST);
     }
 }
 
 class FireMonster extends Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
-        super(hp, attack);
+        super(hp, attack_power);
         this.strongTo = "Grass";
         this.weakTo = "Water";
     }
@@ -76,9 +76,9 @@ class FireMonster extends Monster
 
 class WaterMonster extends Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
-        super(hp, attack);
+        super(hp, attack_power);
         this.strongTo = "Fire";
         this.weakTo = "Grass";
     }
@@ -86,9 +86,9 @@ class WaterMonster extends Monster
 
 class GrassMonster extends Monster
 {
-    constructor(hp, attack)
+    constructor(hp, attack_power)
     {
-        super(hp, attack);
+        super(hp, attack_power);
         this.strongTo = "Water";
         this.weakTo = "Fire";
     }
@@ -228,6 +228,7 @@ const showTitleScreen = function()
 const showSelectionScreen = function()
 {
     console.log("showTitleScreen()");
+    return MonsterGenerator.createRandomMonster();
 }
 
 const showStatsReviewScreen = function()
@@ -239,9 +240,12 @@ const showBattleScreen = function()
 {
     console.log("showBattleScreen()");
     const canvas = document.getElementById("player-sprite");
-    canvas.width - 320px;  // ~20rem.
-    canvas.width = 320px;  // ~20rem.
-    drawShape()
+    canvas.width = 320;  // ~20rem.
+    canvas.width = 320;  // ~20rem.
+    const context = canvas.getContext("2d");
+    const centerX = 160;
+    const centerY = 160;
+    drawShape(centerX, centerY, 50, 4, context);
 }
 
 const showCompletionScreen = function(winningMonster)
@@ -271,7 +275,7 @@ const main = function()
     const playerMonster = showSelectionScreen();
     const opposingMonster = MonsterGenerator.createRandomMonster();
     // Stats review page.
-    showReviewStatsScreen();
+    showStatsReviewScreen();
     // Start Battle Loop.
     if (playerMonster.battle(opposingMonster))
     {
