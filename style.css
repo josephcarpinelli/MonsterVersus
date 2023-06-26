@@ -1,0 +1,49 @@
+main
+{
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+#battle-view
+{
+    height: 80%:
+}
+
+.monster-view
+{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    width: 100%;
+    min-height: 30vh;
+    border: 2px solid yellow;
+}
+
+.monster-stats
+{
+    max-width: 24rem;
+    padding: 0.25rem;
+    border: 0.125rem solid black;
+}
+
+.monster-sprite
+{
+    border: 0.0625rem solid black;
+}
+
+#menu-view
+{
+    display: flex;
+    justify-content: space-between;
+    min-height: 10vh;
+    border: 2px solid blue;
+}
+
+#menu-view > *
+{
+    width: 24rem;
+    max-width: 32rem;
+    padding: 0.25rem;
+    border: 2px solid red;
+}
