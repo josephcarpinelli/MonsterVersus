@@ -99,6 +99,17 @@ function showGameOverScreen()
 function main()
 {
     console.log("main()");
+    // Title Screen.
+    showTitleScreen();
+    // Give Player a Selection between (currently 2) monster types.
+    // After the player chooses, randomly select the enemy and create it.
+    const playerMonster = showSelectionScreen();
+    // Stats review page.
+    showReviewStatsScreen();
+    // Start Battle Loop.
+
+    // At Game Over and Complete Scene, give the player an option to start over.
+    return undefined;
 }
 
 main();
