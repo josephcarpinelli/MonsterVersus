@@ -93,6 +93,76 @@ class GrassMonster extends Monster
     }
 }
 
+class MonsterGenerator
+{
+    static get TOTAL_OPTIONS() {return 3;}
+    static get DEFAULT_HP() {return 10;}
+    static get DEFAULT_ATTACK() {return 2;}
+    static createRandomMonster()
+    {
+        const option = Math.floor(Math.random() + MonsterGenerator.TOTAL_OPTIONS);
+        switch (option)
+        {
+            case 1:
+                return new FireMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break;  // Necessary?
+            case 2:
+                return new WaterMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break;  // Necessary?
+            case 3:
+                return new GrassMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break;  // Necessary?
+            default:
+                console.log(`Error, ${option} is not a valid range...`);
+                break;
+        }
+    }
+    static createEasyMonster(playerMonster)
+    {
+        const playerType = typeof playerMonster;
+        switch (playerType)
+        {
+            // Grass is weak to fire, so it should be easier.
+            case "FireMonster":
+                return new GrassMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            // Fire is weak to water, so it should be easier.
+            case "WaterMonster":
+                return new FireMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            // Water is weak to grass, so it should be easier.
+            case "GrassMonster":
+                return new WaterMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            default:
+                console.log(`Unexpected player type: ${playerType}.`);
+                break;
+        }
+    }
+    static createHardMonster(playerMonster)
+    {
+        const playerType = typeof playerMonster;
+        switch (playerType)
+        {
+            // Fire is weak to water, so it should be more difficult.
+            case "FireMonster":
+                return new WaterMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            // Water is weak to grass, so it should be more difficult.
+            case "WaterMonster":
+                return new GrassMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            // Grass is weak to fire, so it should be more difficult.
+            case "GrassMonster":
+                return new FireMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
+                break; // Necessary?
+            default:
+                console.log(`Unexpected player type: ${playerType}.`);
+                break;
+        }
+    }
+}
+
 
 // ========================================================================= //
 // =========================== Functions =================================== //
@@ -184,11 +254,19 @@ const main = function()
     // Give Player a Selection between (currently 2) monster types.
     // After the player chooses, randomly select the enemy and create it.
     const playerMonster = showSelectionScreen();
+    const opposingMonster = MonsterGenerator.createRandomMonster();
     // Stats review page.
     showReviewStatsScreen();
     // Start Battle Loop.
-
+    if (playerMonster.battle(opposingMonster))
+    {
+        showCompletionScreen();
+    }
     // At Game Over and Complete Scene, give the player an option to start over.
+    else
+    {
+        showGameOverScreen();
+    }
     return undefined;
 }
 
