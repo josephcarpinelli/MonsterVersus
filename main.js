@@ -20,4 +20,24 @@ class Monster
         }
         return opposingMonster.KO;
     }
+    // Returns winning monster.
+    battle(opposingMonster)
+    {
+        // Start Battle Loop.
+        while (!this.KO && !opposingMonster.KO)
+        {
+            // Player always goes first (because player initiates battle, also, maybe give enemy + 2 hp).
+            // If enemy is KO'd, show game complete screen (think about implementing a couple of battles, maybe with healing between).
+            if (this.attack(opposingMonster))
+            {
+                return this;
+            }
+            // else opposingMonster attacks.
+            // If player is still alive, show game over screen.
+            if (opposingMonster.attack(this))
+            {
+                return opposingMonster;
+            }
+        }
+    }
 }
