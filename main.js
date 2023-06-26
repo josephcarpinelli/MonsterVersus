@@ -1,3 +1,6 @@
+// ========================================================================= //
+// ============================ Classes ==================================== //
+// ========================================================================= //
 class Monster
 {
     constructor(hp, attack)
@@ -59,3 +62,43 @@ class AttackMonster extends Monster
         super(hp, attack * this.ATTACK_BOOST);
     }
 }
+
+
+// ========================================================================= //
+// =========================== Functions =================================== //
+// ========================================================================= //
+function showTitleScreen()
+{
+    console.log("showTitleScreen()");
+}
+
+function showSelectionScreen()
+{
+    console.log("showTitleScreen()");
+}
+
+function showStatsReviewScreen()
+{
+    console.log("showTitleScreen()");
+}
+
+function showCompletionScreen(winningMonster)
+{
+    console.log("showCompletionScreen()");
+}
+
+function showGameOverScreen()
+{
+    console.log("showGameOverScreen(winningMonster)");
+}
+
+
+// ========================================================================= //
+// ============================= Main ====================================== //
+// ========================================================================= //
+function main()
+{
+    console.log("main()");
+}
+
+main();
