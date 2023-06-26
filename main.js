@@ -63,6 +63,36 @@ class AttackMonster extends Monster
     }
 }
 
+class FireMonster extends Monster
+{
+    constructor(hp, attack)
+    {
+        super(hp, attack);
+        this.strongTo = "Grass";
+        this.weakTo = "Water";
+    }
+}
+
+class WaterMonster extends Monster
+{
+    constructor(hp, attack)
+    {
+        super(hp, attack);
+        this.strongTo = "Fire";
+        this.weakTo = "Grass";
+    }
+}
+
+class GrassMonster extends Monster
+{
+    constructor(hp, attack)
+    {
+        super(hp, attack);
+        this.strongTo = "Water";
+        this.weakTo = "Fire";
+    }
+}
+
 
 // ========================================================================= //
 // =========================== Functions =================================== //
