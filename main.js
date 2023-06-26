@@ -26,6 +26,7 @@ class Monster
     // Returns winning monster.
     battle(opposingMonster)
     {
+        showBattleScreen();
         // Start Battle Loop.
         while (!this.KO && !opposingMonster.KO)
         {
@@ -165,35 +166,6 @@ class MonsterGenerator
 
 
 // ========================================================================= //
-// =========================== Functions =================================== //
-// ========================================================================= //
-const showTitleScreen = function()
-{
-    console.log("showTitleScreen()");
-}
-
-const showSelectionScreen = function()
-{
-    console.log("showTitleScreen()");
-}
-
-const showStatsReviewScreen = function()
-{
-    console.log("showTitleScreen()");
-}
-
-const showCompletionScreen = function(winningMonster)
-{
-    console.log("showCompletionScreen()");
-}
-
-const showGameOverScreen = function()
-{
-    console.log("showGameOverScreen(winningMonster)");
-}
-
-
-// ========================================================================= //
 // ======================= Helper Functions ================================ //
 // ========================================================================= //
 /*
@@ -214,10 +186,10 @@ To calculate the position of each point, we used a little bit of maths and trigo
 - [`Math.sin()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin) to calculate the y position of a point
 - [`Math.PI`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI) to calculate the angle of rotation in radians
 */
-const drawShape = function(xCoordinate, yCoordinate, radius, sides, canvas)
+const drawShape = function(xCoordinate, yCoordinate, radius, sides, context)
 {
     // move the canvas to the center position
-    canvas.translate(xCoordinate, yCoordinate);
+    context.translate(xCoordinate, yCoordinate);
     for (let sideIndex = 0; sideIndex < sides; sideIndex++)
     {
         // calculate the rotation
@@ -225,22 +197,65 @@ const drawShape = function(xCoordinate, yCoordinate, radius, sides, canvas)
         // for the first point move to
         if (sideIndex === 0)
         {
-            canvas.moveTo(radius * Math.cos(rotation),
+            context.moveTo(radius * Math.cos(rotation),
                        radius * Math.sin(rotation));
         }
         else
         {
             // for the rest dradiusaw a line
-            canvas.lineTo(radius * Math.cos(rotation),
+            context.lineTo(radius * Math.cos(rotation),
                        radius * Math.sin(rotation));
         }
     }
     // close path and stroke it
-    canvas.closePath();
-    canvas.stroke();
+    context.closePath();
+    context.stroke();
     // reset the translate position
-    canvas.resetTransform();
+    context.resetTransform();
 }
+
+
+// ========================================================================= //
+// =========================== Functions =================================== //
+// ========================================================================= //
+
+
+const showTitleScreen = function()
+{
+    console.log("showTitleScreen()");
+}
+
+const showSelectionScreen = function()
+{
+    console.log("showTitleScreen()");
+}
+
+const showStatsReviewScreen = function()
+{
+    console.log("showTitleScreen()");
+}
+
+const showBattleScreen = function()
+{
+    console.log("showBattleScreen()");
+    const canvas = document.getElementById("player-sprite");
+    canvas.width - 320px;  // ~20rem.
+    canvas.width = 320px;  // ~20rem.
+    drawShape()
+}
+
+const showCompletionScreen = function(winningMonster)
+{
+    console.log("showCompletionScreen()");
+}
+
+const showGameOverScreen = function()
+{
+    console.log("showGameOverScreen(winningMonster)");
+}
+
+
+
 
 
 // ========================================================================= //
