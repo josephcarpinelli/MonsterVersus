@@ -1,13 +1,21 @@
+/* :root
+{
+    --total-screen-width: 95vw;
+    --total-screen-height: 95vh;
+
+    --monster-view-height: calc((var(--total-screen-height) / 5) * 2);
+} */
+
 main
 {
     display: flex;
     flex-direction: column;
-    height: 90vh;
+    max-height: 95vh;
 }
 
 #battle-view
 {
-    height: 80%:
+    max-height: 80%;
 }
 
 .monster-view
@@ -15,20 +23,23 @@ main
     display: flex;
     justify-content: space-between;
     padding: 1rem;
-    width: 100%;
-    min-height: 30vh;
+    width: 95vw;
+    height: 30vh;
     border: 2px solid yellow;
 }
 
 .monster-stats
 {
-    max-width: 24rem;
-    padding: 0.25rem;
+    width: 24rem;
+    height: fit-content;
+    padding: 0.5rem;
     border: 0.125rem solid black;
+    align-self: flex-start;
 }
 
 .monster-sprite
 {
+    height: max-content;
     border: 0.0625rem solid black;
 }
 
@@ -45,5 +56,16 @@ main
     width: 24rem;
     max-width: 32rem;
     padding: 0.25rem;
+    margin: 0.25rem;
     border: 2px solid red;
+}
+
+.monster-sprite
+{
+    width: 13vw;
+}
+
+.bold
+{
+    font-weight: bold;
 }
