@@ -10,24 +10,40 @@
 <body>
     <main>
         <section id="battle-view">
-            <section id="enemy-view" class="monster-view">
-                <section id="enemy-stats" class="monster-stats">
-                    <p id="enemy-name" class="monster-name">EnemyName Filler</p>
-                    <p id="enemy-hp" class="monster-hp">EnemyHP Filler</p>
-                    <p id="enemy-attack" class="monster-attack">EnemyAttack Filler</p>
+            <section id="opponent-view" class="monster-view">
+                <section id="opponent-stats" class="monster-stats">
+                    <p id="opponent-name" class="monster-name">
+                        <span id="opponent-name">Enemy Monster </span>
+                    </p>
+                    <p id="opponent-hp" class="monster-hp">
+                        <span class="bold">HP: </span>
+                        <span id="opponent-hp" class="align-right">0 / 0</span>
+                    </p>
+                    <p id="opponent-attack" class="monster-attack">
+                        <span class="bold align-right">Attack Power: </span>
+                        <span id="opponent-atack" class="align-right">100</span>
+                    </p>
                 </section>
-                <section id="enemy-sprite">
-                    <canvas id="player-sprite" class="monster-sprite"></canvas>
+                <section id="show-opponent">
+                    <canvas id="opponent-sprite" class="monster-sprite"></canvas>
                 </section>
             </section>
             <section id="player-view" class="monster-view">
-                <section id="player-stats" class="monster-stats">
-                    <p id="player-name" class="monster-name">PlayerName Filler</p>
-                    <p id="player-hp" class="monster-hp">PlayerHP Filler</p>
-                    <p id="player-attack" class="monster-attack">EnemyAttack Filler</p>
+                <section id="show-player">
+                    <canvas id="player-sprite" class="monster-sprite"></canvas>
                 </section>
-                <section id="show-enemy">
-                    <canvas id="enemy-sprite" class="monster-sprite"></canvas>
+                <section id="player-stats" class="monster-stats">
+                    <p id="player-name" class="monster-name">
+                        <span id="player-name">Player Monster</span>
+                    </p>
+                    <p id="player-hp" class="monster-hp">
+                        <span class="bold">HP: </span>
+                        <span id="player-hp" class="align-right">0 / 0</span>
+                    </p>
+                    <p id="player-attack" class="monster-attack">
+                        <span class="bold align-right">Attack Power: </span>
+                        <span id="player-atack" class="align-right">100</span>
+                    </p>
                 </section>
             </section>
         </section>
