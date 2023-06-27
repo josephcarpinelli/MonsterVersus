@@ -15,7 +15,7 @@ class Monster
     {
         if (!opposingMonster.KO)
         {
-            opposingMonster.hp -= this.attack;
+            opposingMonster.hp -= this.attack_power;
             if (opposingMonster.hp <= 0)
             {
                 opposingMonster.KO = true;
@@ -186,7 +186,9 @@ To calculate the position of each point, we used a little bit of maths and trigo
 - [`Math.sin()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin) to calculate the y position of a point
 - [`Math.PI`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI) to calculate the angle of rotation in radians
 */
-const drawShape = function(xCoordinate, yCoordinate, radius, sides, context)
+const drawShape = function(xCoordinate, yCoordinate,
+                           radius, sides, color,
+                           context)
 {
     // move the canvas to the center position
     context.translate(xCoordinate, yCoordinate);
@@ -208,8 +210,10 @@ const drawShape = function(xCoordinate, yCoordinate, radius, sides, context)
         }
     }
     // close path and stroke it
-    context.closePath();
+    context.closePath(); 
     context.stroke();
+    context.fillStyle = color;
+    context.fill()
     // reset the translate position
     context.resetTransform();
 }
@@ -245,7 +249,7 @@ const showBattleScreen = function()
     const context = canvas.getContext("2d");
     const centerX = 160;
     const centerY = 160;
-    drawShape(centerX, centerY, 50, 4, context);
+    drawShape(centerX, centerY, 50, 4, "red", context);
 }
 
 const showCompletionScreen = function(winningMonster)
