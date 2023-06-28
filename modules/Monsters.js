@@ -3,24 +3,25 @@
 // ========================================================================= //
 class Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
-        this.KO = false;
         this.MAX_HP = hp;
-        this.MAX_ATTACK = attack_power;
+        this.MAX_ATTACK = power;
+
         this.hp = this.MAX_HP;
-        this.attack_power = this.MAX_ATTACK;
+        this.power = this.MAX_ATTACK;
+        this.KO = false;
+    }
+    // Should be the only place to set {this.KO} to true.
+    takeDamage(hpAmount)
+    {
+        this.hp -= hpAmount;
+        if (this.hp <= 0) { this.KO = true; }
+        return this.KO
     }
     attack(opposingMonster)
     {
-        if (!opposingMonster.KO)
-        {
-            opposingMonster.hp -= this.attack_power;
-            if (opposingMonster.hp <= 0)
-            {
-                opposingMonster.KO = true;
-            }
-        }
+        if (!opposingMonster.KO) { opposingMonster.takeDamage(this.power); }
         return opposingMonster.KO;
     }
     // Returns winning monster.
@@ -29,45 +30,42 @@ class Monster
         // Start Battle Loop.
         while (!this.KO && !opposingMonster.KO)
         {
-            // Player always goes first (because player initiates battle, also, maybe give enemy + 2 hp).
-            // If enemy is KO'd, show game complete screen (think about implementing a couple of battles, maybe with healing between).
-            if (this.attack(opposingMonster))
-            {
-                return this;
-            }
+            // Player always goes first
+            // (because player initiates battle, also, maybe give enemy + 2 hp).
+            // (think about implementing a couple of battles, maybe with healing between).
             // else opposingMonster attacks.
-            // If player is still alive, show game over screen.
-            if (opposingMonster.attack(this))
+            if (this.attack(opposingMonster) || opposingMonster.attack(this))
             {
-                return opposingMonster;
+                return opposingMonster.KO;
             }
         }
+        return undefined;
     }
 }
 
 class HpMonster extends Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
         this.HP_BOOST = 1.15;
-        super(hp * this.HP_BOOST, attack_power);
+        super(hp * this.HP_BOOST, power);
     }
 }
 
 class AttackMonster extends Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
         this.ATTACK_BOOST = 1.15;
-        super(hp, attack_power * this.ATTACK_BOOST);
+        super(hp, power * this.ATTACK_BOOST);
     }
 }
 
 class FireMonster extends Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
-        super(hp, attack_power);
+        super(hp, power);
         this.strongTo = "Grass";
         this.weakTo = "Water";
     }
@@ -75,9 +73,9 @@ class FireMonster extends Monster
 
 class WaterMonster extends Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
-        super(hp, attack_power);
+        super(hp, power);
         this.strongTo = "Fire";
         this.weakTo = "Grass";
     }
@@ -85,9 +83,9 @@ class WaterMonster extends Monster
 
 class GrassMonster extends Monster
 {
-    constructor(hp, attack_power)
+    constructor(hp, power)
     {
-        super(hp, attack_power);
+        super(hp, power);
         this.strongTo = "Water";
         this.weakTo = "Fire";
     }
