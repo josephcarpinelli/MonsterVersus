@@ -1,69 +1,85 @@
-/* :root
+:root
 {
-    --total-screen-width: 95vw;
-    --total-screen-height: 95vh;
+    --screen-width: 95vw;
+    --screen-height: 95vh;
+    
+    --debug-border: 2px;
+    --debug-color1: yellow;
+    --debug-color2: blue;
+    --debug-color3: red;
 
-    --monster-view-height: calc((var(--total-screen-height) / 5) * 2);
-} */
+    --view-padding: 1rem;
+    
+    --monster-view-height: calc(var(--screen-height)  * (3/9));
+    --monster-view-section-count: 3;
+
+    --menu-view-height: calc(var(--screen-height) * (2/9));
+
+    --subview-width: 18rem;
+    --subview-margin: 0.25rem;
+    --subview-padding: 0.5rem;
+    /* --subview-height: fit-content; */
+
+    --hud-border: 0.125rem;
+    --hud-align-self: flex-start;
+    --hud-padding: 0.75rem;
+    --hud-font-size: var(--hud-font-size);
+
+    --sprite-width: calc(var(--screen-width) / 7);
+    --sprite-border: 0.0625rem;
+}
 
 main
 {
     display: flex;
     flex-direction: column;
-    max-height: 95vh;
-}
-
-#battle-view
-{
-    max-height: 80%;
+    max-height: var(--screen-height);
 }
 
 .monster-view
 {
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
-    width: 95vw;
-    height: 30vh;
-    border: 2px solid yellow;
+    padding: var(--view-padding);
+    width: var(--screen-width);
+    height: var(--monster-view-height);
+    /* Debug Code: */
+    border: var(--debug-border) solid var(--debug-color1);
 }
 
-.monster-stats
+.hud
 {
-    width: 24rem;
-    height: fit-content;
-    padding: 0.5rem;
-    border: 0.125rem solid black;
-    align-self: flex-start;
+    width: var(--subview-width);
+    border: var(--hud-border) solid black;
+    align-self: var(--hud-align-self);
+    padding: var(--hud-padding);
+    font-size: var(--hud-font-size);
 }
 
-.monster-sprite
+.sprite
 {
-    height: max-content;
-    border: 0.0625rem solid black;
+    width: var(--sprite-width);
+    border: var(--sprite-border) solid black;
 }
 
 #menu-view
 {
     display: flex;
     justify-content: space-between;
-    min-height: 20vh;
-    border: 2px solid blue;
+    height: var(--menu-view-height);
+    /* Debug Code: */
+    border: var(--debug-border) solid var(--debug-color2);
 }
 
 #menu-view > *
 {
-    width: 24rem;
-    max-width: 32rem;
-    padding: 0.25rem;
-    margin: 0.25rem;
-    border: 2px solid red;
+    width: var(--subview-width);
+    margin: var(--subview-margin);
+    padding: var(--subview-padding);
+    /* Debug Code: */
+    border: var(--debug-border) solid var(--debug-color3);
 }
 
-.monster-sprite
-{
-    width: 13vw;
-}
 
 .bold
 {
