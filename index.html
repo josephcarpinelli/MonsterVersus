@@ -9,9 +9,9 @@
 </head>
 <body>
     <main>
-        <section id="battle-view">
+        <section id="battle-screen">
             <section id="opponent-view" class="monster-view">
-                <section id="opponent-stats" class="monster-stats">
+                <section id="opponent-hud" class="hud">
                     <p id="opponent-name" class="monster-name">
                         <span id="opponent-name">Enemy Monster </span>
                     </p>
@@ -19,20 +19,20 @@
                         <span class="bold">HP: </span>
                         <span id="opponent-hp" class="align-right">0 / 0</span>
                     </p>
-                    <p id="opponent-attack" class="monster-attack">
+                    <p id="opponent-power" class="monster-power">
                         <span class="bold align-right">Attack Power: </span>
                         <span id="opponent-atack" class="align-right">100</span>
                     </p>
                 </section>
-                <section id="show-opponent">
-                    <canvas id="opponent-sprite" class="monster-sprite"></canvas>
+                <section id="opponent">
+                    <canvas id="opponent-sprite" class="sprite"></canvas>
                 </section>
             </section>
             <section id="player-view" class="monster-view">
-                <section id="show-player">
-                    <canvas id="player-sprite" class="monster-sprite"></canvas>
+                <section id="player">
+                    <canvas id="player-sprite" class="sprite"></canvas>
                 </section>
-                <section id="player-stats" class="monster-stats">
+                <section id="player-hud" class="hud">
                     <p id="player-name" class="monster-name">
                         <span id="player-name">Player Monster</span>
                     </p>
@@ -40,24 +40,24 @@
                         <span class="bold">HP: </span>
                         <span id="player-hp" class="align-right">0 / 0</span>
                     </p>
-                    <p id="player-attack" class="monster-attack">
+                    <p id="player-power" class="monster-power">
                         <span class="bold align-right">Attack Power: </span>
                         <span id="player-atack" class="align-right">100</span>
                     </p>
                 </section>
             </section>
         </section>
-        <footer id="menu-view">
-            <section id="submenu">
-                <p id="normal-move">NormalMove Filler</p>
-                <p id="special-move">SpecialMove Filler</p>
-            </section>
-            <section id="menu">
-                <p id="menu-attack">Attack</p>
-                <p id="menu-restart">Restart</p>
-                <p id="menu-quit">Quit...</p>
-            </section>
-        </footer>
     </main>
+    <footer id="menu-view">
+        <section id="submenu">
+            <button id="normal-move">NormalMove</button>
+            <button id="special-move">SpecialMove</button>
+        </section>
+        <section id="menu">
+            <button id="menu-attack">Attack</button>
+            <button id="menu-restart">Restart</button>
+            <button id="menu-quit">Quit...</button>
+        </section>
+    </footer>
 </body>
 </html>
