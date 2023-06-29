@@ -8,7 +8,7 @@ Joseph Carpinelli carpinelli.dev@protonmail.ch.
 
 # Building
 
-Download and run in any modern web browser.
+Download and run in any modern web browser, or use this [GitHub Pages Link](https://josephcarpinelli.github.io/MonsterVersus/).
 
 # Contributing
 
