@@ -48,8 +48,8 @@ const updateHud = function(player, opponent)
 console.log("main()");
 const monsterGenerator = new Monsters.MonsterGenerator();
 const dialog = document.getElementById("info");
-const player = monsterGenerator.createRandomMonster("Player");
-const opponent = monsterGenerator.createRandomMonster("Opponent");
+let player = monsterGenerator.createRandomMonster("Player");
+let opponent = monsterGenerator.createRandomMonster("Opponent");
 
 showBattleScreen(player, opponent);
 updateHud(player, opponent);
@@ -93,6 +93,26 @@ attackButton.addEventListener("click", function(event)
     }
     return null;
 });
+
+const restartButton = document.getElementById("menu-restart");
+restartButton.addEventListener("click", function(event)
+{
+    let player = monsterGenerator.createRandomMonster("Player");
+    let opponent = monsterGenerator.createRandomMonster("Opponent");
+    showBattleScreen(player, opponent);
+    updateHud(player, opponent);
+    // Title Screen.
+    dialog.textContent = "Starting Game...";
+    // Give Player a Selection between (currently 2) monster types.
+    // After the player chooses, randomly select the enemy and create it.
+
+    // Stats review page.
+    // showStatsReviewScreen(player, opponent);
+
+    // Start Battle Loop.
+    // Returns boolean value based on whether the player wins.
+    dialog.textContent = "What do you want to do?";
+})
 
 // battle(player, opponent);
     
