@@ -100,6 +100,8 @@ class ElementalShape extends Monster
         {
             const damage = (this.power
                             * this.getMultiplier(opponent.type));
+            console.log(`Damage M: ${damage / this.power}.`);
+            console.log(`${this.name} is ${this.type} type.`);
             opponent.takeDamage(damage);
         }
         return opponent.KO;

@@ -17,11 +17,11 @@ const showBattleScreen = function(player, opponent)
     shapes.draw(player.getColor(),
                 player.getShape(),
                 shapeRadius,
-                opponentContext);
+                playerContext);
     shapes.draw(opponent.getColor(),
                 opponent.getShape(),
                 shapeRadius,
-                playerContext);
+                opponentContext);
     return null;
 }
 
