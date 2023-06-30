@@ -46,7 +46,7 @@ main
     width: var(--screen-width);
     height: var(--monster-view-height);
     /* Debug Code: */
-    border: var(--debug-border) solid var(--debug-color1);
+    /* border: var(--debug-border) solid var(--debug-color1); */
 }
 
 .hud
