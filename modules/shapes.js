@@ -1,5 +1,5 @@
 /*
- * ## [Summary](https://developer.mozilla.org/en-US/blog/javascript-shape-drawing-function/?utm_medium=email&utm_source=devnewsletter&utm_campaign=firefox-drumbeat&utm_content=mayhacksnewsletter-global#summary)
+## [Summary](https://developer.mozilla.org/en-US/blog/javascript-shape-drawing-function/?utm_medium=email&utm_source=devnewsletter&utm_campaign=firefox-drumbeat&utm_content=mayhacksnewsletter-global#summary)
 
 This was a little introduction to the `<canvas>` element for drawing on a web page and a few of the methods you can use to draw shapes. If you want to dive deeper into how all the pieces work, here's a recap of what we used:
 
@@ -7,7 +7,7 @@ This was a little introduction to the `<canvas>` element for drawing on a web pa
 - [`CanvasRenderingContext2D`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D) to draw 2D shapes to the canvas
 - [`translate()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/translate) to move the origin to a new position
 - [`lineTo()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineTo) to draw a line from one point to another
-- [`closePath()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath) to join the first point to the last point
+- [`closePath()`](https://de/undefveloper.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/closePath) to join the first point to the last point
 - [`stroke()`](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/stroke) to stroke the path with a stroke style
 
 To calculate the position of each point, we used a little bit of maths and trigonometry:
@@ -142,12 +142,16 @@ const drawShape = function(pixelRadius, sideCount, rotation, context)
     context.stroke();
     // reset the translate position
     context.resetTransform();
+
+    return null;
 }
 
 const fillShape = function(color, context)
 {
     context.fillStyle = color;
     context.fill()
+
+    return null;
 }
 
 const draw = function(color, shapeName, pixelRadius, context)
@@ -157,7 +161,7 @@ const draw = function(color, shapeName, pixelRadius, context)
     drawShape(pixelRadius, sideCount, rotation, context);
     fillShape(color, context);
     
-    return undefined;
+    return null;
 }
 
 export

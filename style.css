@@ -29,12 +29,14 @@
     --sprite-border: 0.0625rem;
 }
 
+
 main
 {
     display: flex;
     flex-direction: column;
     max-height: var(--screen-height);
 }
+
 
 .monster-view
 {
@@ -62,6 +64,7 @@ main
     border: var(--sprite-border) solid black;
 }
 
+
 #menu-view
 {
     display: flex;
@@ -81,7 +84,34 @@ main
 }
 
 
+button
+{
+    display: block;
+    width: var(--subview-width);
+}
+
+
 .bold
 {
     font-weight: bold;
+}
+
+.center
+{
+    text-align: center;
+}
+
+.align-right
+{
+    float: right;
+}
+
+.show
+{
+    display: block;
+}
+
+.hide
+{
+    display: none;
 }

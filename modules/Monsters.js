@@ -1,121 +1,146 @@
 // ========================================================================= //
 // =========================== Monsters ==================================== //
 // ========================================================================= //
+
 class Monster
 {
-    constructor(hp, power)
+    constructor(name, hp, power)
     {
         this.MAX_HP = hp;
         this.MAX_ATTACK = power;
+        this.name = name;
 
         this.hp = this.MAX_HP;
         this.power = this.MAX_ATTACK;
         this.KO = false;
     }
+
     // Should be the only place to set {this.KO} to true.
     takeDamage(hpAmount)
     {
-        this.hp -= hpAmount;
-        if (this.hp <= 0) { this.KO = true; }
+        this.hp -= Math.floor(hpAmount);  // Ensure integer value.
+        if (this.hp <= 0)
+        {
+            this.KO = true;
+            this.hp = 0;
+        }
         return this.KO
     }
-    attack(opposingMonster)
+
+    attack(opponent)
     {
-        if (!opposingMonster.KO) { opposingMonster.takeDamage(this.power); }
-        return opposingMonster.KO;
+        if (!opponent.KO) { opponent.takeDamage(this.power); }
+        return opponent.KO;
     }
-    // Returns winning monster.
-    battle(opposingMonster)
+}
+
+class ElementalShape extends Monster
+{
+    static get FIRE() { return "Fire"; }
+    static get WATER() { return "Water"; }
+    static get GRASS() { return "Grass"; }
+
+    constructor(name, hp, power, type)
     {
-        // Start Battle Loop.
-        while (!this.KO && !opposingMonster.KO)
+        super(name, hp, power);
+        this.type = type;
+        this.strongTo = this.isStrongTo();
+        // this.weakTo = "None";
+    }
+
+    isStrongTo()
+    {
+        switch (this.type)
         {
-            // Player always goes first
-            // (because player initiates battle, also, maybe give enemy + 2 hp).
-            // (think about implementing a couple of battles, maybe with healing between).
-            // else opposingMonster attacks.
-            if (this.attack(opposingMonster) || opposingMonster.attack(this))
-            {
-                return opposingMonster.KO;
-            }
-        }
-        return undefined;
-    }
-}
-
-class HpMonster extends Monster
-{
-    constructor(hp, power)
-    {
-        this.HP_BOOST = 1.15;
-        super(hp * this.HP_BOOST, power);
-    }
-}
-
-class AttackMonster extends Monster
-{
-    constructor(hp, power)
-    {
-        this.ATTACK_BOOST = 1.15;
-        super(hp, power * this.ATTACK_BOOST);
-    }
-}
-
-class FireMonster extends Monster
-{
-    constructor(hp, power)
-    {
-        super(hp, power);
-        this.strongTo = "Grass";
-        this.weakTo = "Water";
-    }
-}
-
-class WaterMonster extends Monster
-{
-    constructor(hp, power)
-    {
-        super(hp, power);
-        this.strongTo = "Fire";
-        this.weakTo = "Grass";
-    }
-}
-
-class GrassMonster extends Monster
-{
-    constructor(hp, power)
-    {
-        super(hp, power);
-        this.strongTo = "Water";
-        this.weakTo = "Fire";
-    }
-}
-
-class MonsterGenerator
-{
-    static get TOTAL_OPTIONS() {return 3;}
-    static get DEFAULT_HP() {return 10;}
-    static get DEFAULT_ATTACK() {return 2;}
-    static createRandomMonster()
-    {
-        const option = Math.floor(Math.random() + MonsterGenerator.TOTAL_OPTIONS);
-        switch (option)
-        {
-            case 1:
-                return new FireMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
-                break;  // Necessary?
-            case 2:
-                return new WaterMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
-                break;  // Necessary?
-            case 3:
-                return new GrassMonster(MonsterGenerator.DEFAULT_HP, MonsterGenerator.DEFAULT_ATTACK);
-                break;  // Necessary?
+            case ElementalShape.FIRE: return ElementalShape.GRASS;
+            case ElementalShape.WATER: return ElementalShape.FIRE;
+            case ElementalShape.GRASS: return ElementalShape.WATER;
             default:
-                console.log(`Error, ${option} is not a valid range...`);
+                console.log(`Error! ${this.type} is not a valid type.`);
                 break;
         }
     }
-    static createEasyMonster(playerMonster)
+    
+    getColor()
+    {
+        switch (this.type)
+        {
+            case ElementalShape.FIRE: return "red";
+            case ElementalShape.WATER: return "blue";
+            case ElementalShape.GRASS: return "green";
+            default:
+                console.log(`Error! ${this.type} is not a valid type.`);
+                return null;
+        }
+    }
+    
+    getShape()
+    {
+        switch (this.type)
+        {
+            case ElementalShape.FIRE: return "triangle";
+            case ElementalShape.WATER: return "hexagon";
+            case ElementalShape.GRASS: return "square";
+            default:
+                console.log(`Error! ${this.type} is not a valid type.`);
+                return null;
+        }
+    }
+
+    getMultiplier(type)
+    {
+        if (type === this.strongTo) { return 1.5; }
+        else if (type === this.type) { return 0.5; }
+        else { return 1.0; }
+    }
+
+    attack(opponent)
+    {
+        if (!opponent.KO)
+        {
+            const damage = (this.power
+                            * this.getMultiplier(opponent.type));
+            opponent.takeDamage(damage);
+        }
+        return opponent.KO;
+    }
+}
+
+
+class MonsterGenerator
+{
+    static get DEFAULT_NAME() { return "Player"; }
+    static get DEFAULT_HP() { return 10; }
+    static get DEFAULT_ATTACK() { return 2; }
+    static get TOTAL_OPTIONS() { return 3; }
+
+    createRandomMonster(name)
+    {
+        const option = Math.floor(Math.random() * MonsterGenerator.TOTAL_OPTIONS);
+        switch (option)
+        {
+            case 0:
+                return new ElementalShape(name,
+                                         MonsterGenerator.DEFAULT_HP,
+                                         MonsterGenerator.DEFAULT_ATTACK,
+                                         ElementalShape.FIRE);
+            case 1:
+                return new ElementalShape(name,
+                                          MonsterGenerator.DEFAULT_HP,
+                                          MonsterGenerator.DEFAULT_ATTACK,
+                                          ElementalShape.WATER);
+            case 2:
+                return new ElementalShape(name,
+                                          MonsterGenerator.DEFAULT_HP,
+                                          MonsterGenerator.DEFAULT_ATTACK,
+                                          ElementalShape.GRASS);
+            default:
+                console.log(`Error, ${option} is not a valid range...`);
+                return null;
+        }
+    }
+
+    createEasyMonster(playerMonster)
     {
         const playerType = typeof playerMonster;
         switch (playerType)
@@ -137,7 +162,8 @@ class MonsterGenerator
                 break;
         }
     }
-    static createHardMonster(playerMonster)
+    
+    createHardMonster(playerMonster)
     {
         const playerType = typeof playerMonster;
         switch (playerType)
@@ -164,10 +190,6 @@ class MonsterGenerator
 export
 {
     Monster,
-    FireMonster,
-    WaterMonster,
-    GrassMonster,
-    HpMonster,
-    AttackMonster,
+    ElementalShape,
     MonsterGenerator,
 };
