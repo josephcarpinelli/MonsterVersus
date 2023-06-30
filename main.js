@@ -97,8 +97,8 @@ attackButton.addEventListener("click", function(event)
 const restartButton = document.getElementById("menu-restart");
 restartButton.addEventListener("click", function(event)
 {
-    let player = monsterGenerator.createRandomMonster("Player");
-    let opponent = monsterGenerator.createRandomMonster("Opponent");
+    player = monsterGenerator.createRandomMonster("Player");
+    opponent = monsterGenerator.createRandomMonster("Opponent");
     showBattleScreen(player, opponent);
     updateHud(player, opponent);
     // Title Screen.
