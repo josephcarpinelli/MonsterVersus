@@ -18,7 +18,10 @@ class Monster
     // Should be the only place to set {this.KO} to true.
     takeDamage(hpAmount)
     {
-        this.hp -= Math.floor(hpAmount);  // Ensure integer value.
+        console.log("takeDamage()");
+        const damage = Math.floor(hpAmount);  // Ensure integer value.
+        console.log(`${this.name} took ${damage} damage.`);
+        this.hp -= damage;
         if (this.hp <= 0)
         {
             this.KO = true;
@@ -29,12 +32,13 @@ class Monster
 
     attack(opponent)
     {
+        console.log("attack()");
         if (!opponent.KO) { opponent.takeDamage(this.power); }
         return opponent.KO;
     }
 }
 
-class ElementalShape extends Monster
+class ElementalMonster extends Monster
 {
     static get FIRE() { return "Fire"; }
     static get WATER() { return "Water"; }
@@ -52,9 +56,9 @@ class ElementalShape extends Monster
     {
         switch (this.type)
         {
-            case ElementalShape.FIRE: return ElementalShape.GRASS;
-            case ElementalShape.WATER: return ElementalShape.FIRE;
-            case ElementalShape.GRASS: return ElementalShape.WATER;
+            case ElementalMonster.FIRE: return ElementalMonster.GRASS;
+            case ElementalMonster.WATER: return ElementalMonster.FIRE;
+            case ElementalMonster.GRASS: return ElementalMonster.WATER;
             default:
                 console.log(`Error! ${this.type} is not a valid type.`);
                 break;
@@ -65,9 +69,9 @@ class ElementalShape extends Monster
     {
         switch (this.type)
         {
-            case ElementalShape.FIRE: return "red";
-            case ElementalShape.WATER: return "blue";
-            case ElementalShape.GRASS: return "green";
+            case ElementalMonster.FIRE: return "red";
+            case ElementalMonster.WATER: return "blue";
+            case ElementalMonster.GRASS: return "green";
             default:
                 console.log(`Error! ${this.type} is not a valid type.`);
                 return null;
@@ -78,9 +82,9 @@ class ElementalShape extends Monster
     {
         switch (this.type)
         {
-            case ElementalShape.FIRE: return "triangle";
-            case ElementalShape.WATER: return "hexagon";
-            case ElementalShape.GRASS: return "square";
+            case ElementalMonster.FIRE: return "triangle";
+            case ElementalMonster.WATER: return "hexagon";
+            case ElementalMonster.GRASS: return "square";
             default:
                 console.log(`Error! ${this.type} is not a valid type.`);
                 return null;
@@ -96,18 +100,34 @@ class ElementalShape extends Monster
 
     attack(opponent)
     {
+        console.log("attack()");
         if (!opponent.KO)
         {
             const damage = (this.power
                             * this.getMultiplier(opponent.type));
             console.log(`Damage M: ${damage / this.power}.`);
-            console.log(`${this.name} is ${this.type} type.`);
+            console.log(`${this.name}, a ${this.type} type did ${damage} damage.`);
             opponent.takeDamage(damage);
         }
         return opponent.KO;
     }
 }
 
+class Player extends ElementalMonster
+{
+    constructor(name, hp, power, type)
+    {
+        super(name, hp, power, type);
+    }
+}
+
+class Opponent extends Player
+{
+    constructor(name, hp, power, type)
+    {
+        super(name, hp, power, type);
+    }
+}
 
 class MonsterGenerator
 {
@@ -122,20 +142,20 @@ class MonsterGenerator
         switch (option)
         {
             case 0:
-                return new ElementalShape(name,
+                return new ElementalMonster(name,
                                          MonsterGenerator.DEFAULT_HP,
                                          MonsterGenerator.DEFAULT_ATTACK,
-                                         ElementalShape.FIRE);
+                                         ElementalMonster.FIRE);
             case 1:
-                return new ElementalShape(name,
+                return new ElementalMonster(name,
                                           MonsterGenerator.DEFAULT_HP,
                                           MonsterGenerator.DEFAULT_ATTACK,
-                                          ElementalShape.WATER);
+                                          ElementalMonster.WATER);
             case 2:
-                return new ElementalShape(name,
+                return new ElementalMonster(name,
                                           MonsterGenerator.DEFAULT_HP,
                                           MonsterGenerator.DEFAULT_ATTACK,
-                                          ElementalShape.GRASS);
+                                          ElementalMonster.GRASS);
             default:
                 console.log(`Error, ${option} is not a valid range...`);
                 return null;
@@ -192,6 +212,8 @@ class MonsterGenerator
 export
 {
     Monster,
-    ElementalShape,
+    ElementalMonster,
+    Player,
+    Opponent,
     MonsterGenerator,
 };
