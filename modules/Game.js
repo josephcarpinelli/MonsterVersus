@@ -38,6 +38,8 @@ class Game
     start()
     {
         console.log("start()");
+        // For each screen, set to hide.
+        this.ui.hideAllScreens();
         // Load level, spawn enemies, and set up UI
         // Draw Start Screen, get input
         // Title Screen.
@@ -105,18 +107,16 @@ class Game
         // Win.
         if (this.opponents[this.currentOpponent].KO)
         {
-            this.ui.dialog.textContent = "Game Won! Press 'Restart' to play again!";
-            // alert("Game Won! Press 'OK' then 'Restart' to play again!");
             console.log("showCompletionScreen();");
+            this.ui.hideAllScreens();
+            this.ui.showCompletionScreen(this.player);
         }
         // Loss.
         if (this.player.KO)
         {
             console.log("showGameOverScreen();");
-            this.ui.dialog.textContent = "Game Over! Press 'Restart' to play again!";
-            // alert("Game Over! Press 'OK' then 'Restart' to play again!");
-            // At Game Over and Complete Scene,
-            // give the player an option to start over.
+            this.ui.hideAllScreens();
+            this.ui.showGameOverScreen(this.opponents[this.currentOpponent]);
         }
 
         return null;
