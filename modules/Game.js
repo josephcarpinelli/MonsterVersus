@@ -26,6 +26,7 @@ class Game
             let opponent = this.monsterGenerator.createRandomMonster("Opponent");
             this.opponents.push(opponent);
         }
+
         return null;
     }
 
@@ -33,6 +34,8 @@ class Game
     {
         // Code to update UI elements based on game state.
         this.ui.updateHud(this.player, this.opponents[this.currentOpponent]);
+        
+        return null;
     }
 
     start()
@@ -58,8 +61,11 @@ class Game
         // battle(player, opponent);
         // Start Battle
         // Draw Battle Screen, get battle input
+        // Clear previous opponents.
+        this.opponents = [];
         this.spawnOpponents(1);
         this.gameLoop();
+
         return null;
     }
 
@@ -70,6 +76,7 @@ class Game
         if (this.isGameOver)
         {
             this.endGame();
+
             return null;
         }
 
@@ -125,11 +132,17 @@ class Game
     restartButtonClicked()
     {
         console.log("restartButtonClicked()");
-        // Clear opponents.
-        this.opponents = [];
         // Start new game.
         this.start();
         
+        return null;
+    }
+
+    quitButtonClicked()
+    {
+        console.log("quitButtonClicked()");
+        this.ui.showTitleScreen();
+
         return null;
     }
 
