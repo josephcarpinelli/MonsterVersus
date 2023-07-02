@@ -1,4 +1,5 @@
 import * as shapes from "./shapes.js";
+import * as Sound from "./Sound.js";
 
 
 class UI
@@ -6,6 +7,7 @@ class UI
     constructor(game)
     {
         this.game = game;
+        this.sound = new Sound.Sound();
         // Get DOM elements.
         // Screens
         this.titleScreen = document.getElementById("title-screen");
@@ -50,13 +52,11 @@ class UI
     
     setup()
     {
-        console.log("setup()");
         // Listen for HTML button clicks.
         this.startButton.addEventListener("click", (event) =>
         {
             console.log(`${event}.`);
-            this.hideTitleScreen();
-            this.game.start();
+            this.game.gameLoop();
             return null;
         });
 
@@ -113,6 +113,7 @@ class UI
     showTitleScreen()
     {
         this.hideAllScreens();
+        this.sound.titleScreen.play();
         this.titleScreen.style.display = "flex";
         return null;
     }
@@ -151,9 +152,7 @@ class UI
 
     showBattleScreen(player, opponent)
     {
-        console.log("showBattleScreen()");
         this.hideAllScreens();
-        document.body.style.background = "white";
         // Draw monsters.
         shapes.draw(player.getColor(),
                     player.getShape(),
@@ -205,7 +204,6 @@ class UI
 
     updateHud(player, opponent)
     {
-        console.log("updateHud()");
         // Update opponent HUD values.
         this.opponentName.textContent = opponent.name;
         this.opponentHp.textContent = `${opponent.hp} / ${opponent.MAX_HP}`;
