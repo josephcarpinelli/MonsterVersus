@@ -36,6 +36,7 @@ class UI
         this.startButton = document.getElementById("start-button");
         this.attackButton = document.getElementById("menu-attack");
         this.restartButtons = document.getElementsByClassName("restart-button");
+        this.quitButton = document.getElementById("menu-quit");
         this.dialog = document.getElementById("info");
 
         // Hard-coded constants.
@@ -53,7 +54,7 @@ class UI
         // Listen for HTML button clicks.
         this.startButton.addEventListener("click", (event) =>
         {
-            console.log(`playerAttack(): ${event}.`);
+            console.log(`${event}.`);
             this.hideTitleScreen();
             this.game.start();
             return null;
@@ -61,20 +62,25 @@ class UI
 
         this.attackButton.addEventListener("click", (event) => 
         {
-            console.log(`playerAttack(): ${event}.`);
+            console.log(`${event}.`);
             this.game.attackButtonClicked();
             return null;
         });
 
         Array.from(this.restartButtons).forEach((restartButton) =>
         {
-
             restartButton.addEventListener("click", (event) =>
             {
-                console.log(`playerAttack(): ${event}.`);
+                console.log(`${event}.`);
                 this.game.restartButtonClicked();
                 return null;
             });
+        });
+
+        this.quitButton.addEventListener("click", (event) =>
+        {
+            console.log(`${event}.`);
+            this.game.quitButtonClicked();
         });
 
         // Listen for keyboard events
