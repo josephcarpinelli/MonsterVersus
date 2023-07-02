@@ -18,7 +18,6 @@ class Monster
     // Should be the only place to set {this.KO} to true.
     takeDamage(hpAmount)
     {
-        console.log("takeDamage()");
         const damage = Math.floor(hpAmount);  // Ensure integer value.
         console.log(`${this.name} took ${damage} damage.`);
         this.hp -= damage;
@@ -32,7 +31,6 @@ class Monster
 
     attack(opponent, damage=this.power)
     {
-        console.log("attack()");
         if (!this.KO && !opponent.KO) { opponent.takeDamage(damage); }
         return opponent.KO;
     }
@@ -100,11 +98,12 @@ class ElementalMonster extends Monster
 
     attack(opponent)
     {
-        console.log("attack()");
         const damage = (this.power
                         * this.getMultiplier(opponent.type));
-        console.log(`Damage M: ${damage / this.power}.`);
-        console.log(`${this.name}, a ${this.type} type did ${damage} damage.`);
+        console.log(`${this.name},
+                    a ${this.type} type
+                    did ${damage} damage,
+                    with a damage multiplier of ${damage / this.power}.`);
         super.attack(opponent, damage);
 
         return opponent.KO;
