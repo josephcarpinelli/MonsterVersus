@@ -1,5 +1,5 @@
 import * as Monsters from "./Monsters.js";
-//import * as Sound from "./Sound.js";
+import * as Sound from "./Sound.js";
 import * as UI from "./UI.js";
 
 
@@ -13,7 +13,7 @@ class Game
         this.opponents = [];
         this.currentOpponent = 0;
         this.ui = new UI.UI(this);
-        // this.sound = new Sound.Sound();
+        this.sound = new Sound.Sound();
         this.isGameOver = false;
     }
 
@@ -38,16 +38,11 @@ class Game
         return null;
     }
 
-    start()
+    setup()
     {
-        console.log("start()");
         // For each screen, set to hide.
         this.ui.hideAllScreens();
-        // Load level, spawn enemies, and set up UI
-        // Draw Start Screen, get input
-        // Title Screen.
-        this.ui.dialog.textContent = "Starting Game...";
-
+        document.body.style.background = "white";
         // Draw Character Selection Screen, get input for it
         // Give Player a Selection between (currently 3) monster types.
         // After the player chooses, randomly select the enemy and create it.
@@ -55,23 +50,21 @@ class Game
         // Stats review page.
         // showStatsReviewScreen(player, opponent);
 
-        // Start Rounds
-
-        // Start Battle Loop.
-        // battle(player, opponent);
-        // Start Battle
-        // Draw Battle Screen, get battle input
         // Clear previous opponents.
         this.opponents = [];
         this.spawnOpponents(1);
-        this.gameLoop();
+    }
+
+    start()
+    {
+        this.setup()
+        this.ui.showTitleScreen();
 
         return null;
     }
 
     gameLoop()
     {
-        console.log("gameLoop()");
         // Start game loop
         if (this.isGameOver)
         {
@@ -94,34 +87,28 @@ class Game
 
     attackButtonClicked()
     {
-        console.log("attackButtonClicked()");
         // Player always goes first
         // (because player initiates battle, also, maybe give enemy + 2 hp).
         // (think about implementing a couple of battles, maybe with healing between).
         // else opponent attacks.
-        console.log(this.player);
         console.log(this.opponents[this.currentOpponent]);
         this.player.attack(this.opponents[this.currentOpponent])
-        console.log(this.player);
-        console.log(this.opponents[this.currentOpponent]);
+        this.sound.hit.play();
         this.updateUI();
-        console.log(this.player);
-        console.log(this.opponents[this.currentOpponent]);
-        this.opponents[this.currentOpponent].attack(this.player)
+        this.opponents[this.currentOpponent].attack(this.player);
+        this.sound.hit.play();
         console.log(this.player);
         console.log(this.opponents[this.currentOpponent]);
         this.updateUI();
         // Win.
         if (this.opponents[this.currentOpponent].KO)
         {
-            console.log("showCompletionScreen();");
             this.ui.hideAllScreens();
             this.ui.showCompletionScreen(this.player);
         }
         // Loss.
         if (this.player.KO)
         {
-            console.log("showGameOverScreen();");
             this.ui.hideAllScreens();
             this.ui.showGameOverScreen(this.opponents[this.currentOpponent]);
         }
@@ -131,16 +118,15 @@ class Game
 
     restartButtonClicked()
     {
-        console.log("restartButtonClicked()");
         // Start new game.
-        this.start();
+        this.setup();
+        this.gameLoop();
         
         return null;
     }
 
     quitButtonClicked()
     {
-        console.log("quitButtonClicked()");
         this.ui.showTitleScreen();
 
         return null;
