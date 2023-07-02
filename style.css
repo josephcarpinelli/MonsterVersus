@@ -47,6 +47,41 @@ main
     height: var(--screen-height);
 }
 
+#character-selection-screen
+{
+    /* display: flex; Hidden by default.*/
+    justify-content: center;
+    align-items: center;
+    height: var(--screen-height);
+}
+
+#character-review-screen
+{
+    /* display: flex; Hidden by default.*/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--screen-height);
+}
+
+#completion-screen
+{
+    /* display: flex; Hidden by default.*/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--screen-height);
+}
+
+#game-over-screen
+{
+    /* display: flex; Hidden by default.*/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--screen-height);
+}
+
 
 .monster-view
 {
@@ -118,7 +153,7 @@ button
 
 .show
 {
-    visibility: block;
+    display: flex;
 }
 
 .hide
