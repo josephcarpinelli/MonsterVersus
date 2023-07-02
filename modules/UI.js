@@ -7,6 +7,12 @@ class UI
     {
         this.game = game;
         // Get DOM elements.
+        // Screens
+        this.titleScreen = document.getElementById("title-screen");
+        this.characterSelectionScreen = null;
+        this.battleScreen = document.getElementById("battle-screen");
+        this.completionScreen = null;
+        this.gameOverScreen = null;
         // HUD
         this.opponentName = document.getElementById("opponent-name");
         this.opponentHp = document.getElementById("opponent-hp");
@@ -19,10 +25,11 @@ class UI
         this.playerCanvas = document.getElementById("player-sprite");
         this.opponentContext = this.opponentCanvas.getContext("2d");
         this.playerContext = this.playerCanvas.getContext("2d");
-        // Menu
-        this.dialog = document.getElementById("info");
+        // Interaction
+        this.startButton = document.getElementById("start-button");
         this.attackButton = document.getElementById("menu-attack");
         this.restartButton = document.getElementById("menu-restart");
+        this.dialog = document.getElementById("info");
 
         // Hard-coded constants.
         this.shapeRadius = 50;
@@ -37,6 +44,14 @@ class UI
     {
         console.log("setup()");
         // Listen for HTML button clicks.
+        this.startButton.addEventListener("click", (event) =>
+        {
+            console.log(`playerAttack(): ${event}.`);
+            this.hideTitleScreen();
+            this.game.start();
+            return null;
+        });
+
         this.attackButton.addEventListener("click", (event) => 
         {
             console.log(`playerAttack(): ${event}.`);
@@ -69,6 +84,17 @@ class UI
         });
     }
 
+    showTitleScreen()
+    {
+        this.titleScreen.style.display = "flex";
+        return null;
+    }
+
+    hideTitleScreen()
+    {
+        this.titleScreen.style.display = "none";
+    }
+
     showBattleScreen(player, opponent)
     {
         console.log("showBattleScreen()");
@@ -82,6 +108,8 @@ class UI
                     this.shapeRadius,
                     this.opponentContext);
         this.dialog.textContent = "What do you want to do?";
+        this.battleScreen.style.display = "block";
+
         return null;
     }
 
