@@ -38,6 +38,16 @@ main
 }
 
 
+#title-screen
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--screen-height);
+}
+
+
 .monster-view
 {
     display: flex;
@@ -108,7 +118,7 @@ button
 
 .show
 {
-    display: block;
+    visibility: block;
 }
 
 .hide
