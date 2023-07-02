@@ -7,6 +7,7 @@ const main = function()
 {
     console.log("main()");
     const game = new Game.Game();
+    console.log(game);
 
     return 0;
 }
