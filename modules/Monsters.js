@@ -30,10 +30,10 @@ class Monster
         return this.KO
     }
 
-    attack(opponent)
+    attack(opponent, damage=this.power)
     {
         console.log("attack()");
-        if (!opponent.KO) { opponent.takeDamage(this.power); }
+        if (!this.KO && !opponent.KO) { opponent.takeDamage(damage); }
         return opponent.KO;
     }
 }
@@ -101,14 +101,12 @@ class ElementalMonster extends Monster
     attack(opponent)
     {
         console.log("attack()");
-        if (!opponent.KO)
-        {
-            const damage = (this.power
-                            * this.getMultiplier(opponent.type));
-            console.log(`Damage M: ${damage / this.power}.`);
-            console.log(`${this.name}, a ${this.type} type did ${damage} damage.`);
-            opponent.takeDamage(damage);
-        }
+        const damage = (this.power
+                        * this.getMultiplier(opponent.type));
+        console.log(`Damage M: ${damage / this.power}.`);
+        console.log(`${this.name}, a ${this.type} type did ${damage} damage.`);
+        super.attack(opponent, damage);
+
         return opponent.KO;
     }
 }
