@@ -9,7 +9,11 @@
 </head>
 <body>
     <main>
-        <section id="battle-screen">
+        <section id="title-screen">
+            <p id="title"><h1>Shape Red</h1></p>
+            <button id="start-button">Start</button>
+        </section>
+        <section id="battle-screen" class="hide">
             <section id="opponent-view" class="monster-view">
                 <section id="opponent-hud" class="hud">
                     <p class="monster-name center">
@@ -46,23 +50,23 @@
                     </p>
                 </section>
             </section>
+            <section id="menu-view">
+                <section id="submenu" class="hide">
+                    <button id="normal-move">NormalMove</button>
+                    <button id="special-move">SpecialMove</button>
+                </section>
+                <section id="info-subview">
+                    <p id="info" class="bold center">
+                        What do you want to do?
+                    </p>
+                </section>
+                <section id="menu">
+                    <button id="menu-attack">Attack</button>
+                    <button id="menu-restart">Restart</button>
+                    <button id="menu-quit" class="hide">Quit...</button>
+                </section>
+            </section>
         </section>
     </main>
-    <footer id="menu-view">
-        <section id="submenu" class="hide">
-            <button id="normal-move">NormalMove</button>
-            <button id="special-move">SpecialMove</button>
-        </section>
-        <section id="info-subview">
-            <p id="info" class="bold center">
-                What do you want to do?
-            </p>
-        </section>
-        <section id="menu">
-            <button id="menu-attack">Attack</button>
-            <button id="menu-restart">Restart</button>
-            <button id="menu-quit" class="hide">Quit...</button>
-        </section>
-    </footer>
 </body>
 </html>
