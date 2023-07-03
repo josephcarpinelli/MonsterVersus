@@ -19,7 +19,6 @@ class Monster
     takeDamage(hpAmount)
     {
         const damage = Math.floor(hpAmount);  // Ensure integer value.
-        console.log(`${this.name} took ${damage} damage.`);
         this.hp -= damage;
         if (this.hp <= 0)
         {
@@ -29,9 +28,9 @@ class Monster
         return this.KO
     }
 
-    attack(opponent, damage=this.power)
+    attack(opponent)
     {
-        if (!this.KO && !opponent.KO) { opponent.takeDamage(damage); }
+        if (!this.KO && !opponent.KO) { opponent.takeDamage(this.power); }
         return opponent.KO;
     }
 }
@@ -46,22 +45,41 @@ class ElementalMonster extends Monster
     {
         super(name, hp, power);
         this.type = type;
-        this.strongTo = this.isStrongTo();
-        // this.weakTo = "None";
+        this.weakTo = this.isWeakTo();
+        this.weakAgainst = this.isWeakAgainst();
+        // this.strongAgainst = this.isStrongAgainst();
     }
 
-    isStrongTo()
+    isWeakTo()
     {
         switch (this.type)
         {
-            case ElementalMonster.FIRE: return ElementalMonster.GRASS;
-            case ElementalMonster.WATER: return ElementalMonster.FIRE;
-            case ElementalMonster.GRASS: return ElementalMonster.WATER;
+            case ElementalMonster.FIRE: return ElementalMonster.WATER;
+            case ElementalMonster.WATER: return ElementalMonster.GRASS;
+            case ElementalMonster.GRASS: return ElementalMonster.FIRE;
             default:
                 console.log(`Error! ${this.type} is not a valid type.`);
-                break;
+                return null;
         }
     }
+
+    isWeakAgainst()
+    {
+        return this.type;
+    }
+
+    // isStrongAgainst()
+    // {
+    //     switch (this.type)
+    //     {
+    //         case ElementalMonster.FIRE: return ElementalMonster.GRASS;
+    //         case ElementalMonster.WATER: return ElementalMonster.FIRE;
+    //         case ElementalMonster.GRASS: return ElementalMonster.WATER;
+    //         default:
+    //             console.log(`Error! ${this.type} is not a valid type.`);
+    //             return null;
+    //     }
+    // }
     
     getColor()
     {
@@ -89,23 +107,30 @@ class ElementalMonster extends Monster
         }
     }
 
-    getMultiplier(type)
+    getTypeMultiplier(damageType)
     {
-        if (type === this.strongTo) { return 1.5; }
-        else if (type === this.type) { return 0.5; }
+        // If weak to type, take 150% damage.
+        if (damageType === this.weakTo) { return 1.5; }
+        // Else if the damageType and self type are the same, damage is 50%.
+        else if (damageType === this.weakAgainst) { return 0.5; }
+        // All other cases deal unmodified damage at 100%.
         else { return 1.0; }
+    }
+
+    takeDamage(hpAmount, damageType)
+    {
+        const damage = (hpAmount
+                        * this.getTypeMultiplier(damageType));
+        console.log(`${this.name}, `
+                    + `a ${this.type} type, `
+                    + `took ${damage} ${damageType} damage, `
+                    + `due to a damage multiplier of ${damage / hpAmount}.`);
+        return super.takeDamage(damage);
     }
 
     attack(opponent)
     {
-        const damage = (this.power
-                        * this.getMultiplier(opponent.type));
-        console.log(`${this.name},
-                    a ${this.type} type
-                    did ${damage} damage,
-                    with a damage multiplier of ${damage / this.power}.`);
-        super.attack(opponent, damage);
-
+        if (!this.KO && !opponent.KO) { opponent.takeDamage(this.power, this.type); }
         return opponent.KO;
     }
 }
