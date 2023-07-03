@@ -22,6 +22,13 @@ class UI
                         this.battleScreen,
                         this.completionScreen,
                         this.gameOverScreen,];
+        // Menus
+        this.battleMenu = document.getElementById("battle-menu");
+        this.moveMenu = document.getElementById("move-menu");
+        this.confirmMenu = document.getElementById("confirm-menu");
+        this.menus = [this.battleMenu,
+                      this.moveMenu,
+                      this.confirmMenu,];
         // HUD
         this.opponentName = document.getElementById("opponent-name");
         this.opponentHp = document.getElementById("opponent-hp");
@@ -37,9 +44,11 @@ class UI
         // Interaction
         this.startButton = document.getElementById("start-button");
         this.attackButton = document.getElementById("menu-attack");
+        this.confirmButton = document.getElementById("confirm-button");
         this.restartButtons = document.getElementsByClassName("restart-button");
         this.quitButton = document.getElementById("menu-quit");
-        this.dialog = document.getElementById("info");
+        // Dialogs/info
+        this.battleInfo = document.getElementById("battle-info");
 
         // Hard-coded constants.
         this.shapeRadius = 50;
@@ -55,15 +64,22 @@ class UI
         // Listen for HTML button clicks.
         this.startButton.addEventListener("click", (event) =>
         {
-            console.log(`${event}.`);
-            this.game.gameLoop();
+            // console.log(`${event}.`);
+            this.game.startButtonClicked();
             return null;
         });
 
         this.attackButton.addEventListener("click", (event) => 
         {
-            console.log(`${event}.`);
+            // console.log(`${event}.`);
             this.game.attackButtonClicked();
+            return null;
+        });
+
+        this.confirmButton.addEventListener("click", (event) =>
+        {
+            // console.log(`${event}.`);
+            this.game.confirmButtonClicked();
             return null;
         });
 
@@ -71,7 +87,7 @@ class UI
         {
             restartButton.addEventListener("click", (event) =>
             {
-                console.log(`${event}.`);
+                // console.log(`${event}.`);
                 this.game.restartButtonClicked();
                 return null;
             });
@@ -79,7 +95,7 @@ class UI
 
         this.quitButton.addEventListener("click", (event) =>
         {
-            console.log(`${event}.`);
+            // console.log(`${event}.`);
             this.game.quitButtonClicked();
         });
 
@@ -101,58 +117,73 @@ class UI
         });
     }
 
+    hide(element)
+    {
+        if (!element.classList.contains("hide"))
+        {
+            element.classList.add("hide");
+        }
+        return null;
+    }
+
+    show(element)
+    {
+        while (element.classList.contains("hide"))
+        {
+            element.classList.remove("hide");
+        }
+        return null;
+    }
+
+    showScreen(screen)
+    {
+        this.hideAllScreens();
+        this.show(screen);
+        return null;
+    }
+
+    showMenu(menu)
+    {
+        this.hideAllMenus();
+        this.show(menu);
+        return null;
+    }
+
     hideAllScreens()
     {
         for (let screen of this.screens)
         {
-            screen.style.display = "none";
+            this.hide(screen);
         }
+        return null;
+    }
+
+    hideAllMenus()
+    {
+        for (let menu of this.menus)
+        {
+            this.hide(menu);
+        }
+        return null;
+    }
+
+    hideAll()
+    {
+        this.hideAllScreens();
+        this.hideAllMenus();
         return null;
     }
 
     showTitleScreen()
     {
-        this.hideAllScreens();
+        this.showScreen(this.titleScreen);
         this.sound.titleScreen.play();
-        this.titleScreen.style.display = "flex";
-        return null;
-    }
-
-    hideTitleScreen()
-    {
-        this.titleScreen.style.display = "none";
-        return null;
-    }
-
-    showCharacterSelectionScreen()
-    {
-        this.hideAllScreens();
-        this.characterSelectionScreen.style.display = "flex";
-        return null;
-    }
-
-    hideCharacterSelectionScreen()
-    {
-        this.characterSelectionScreen.style.display = "none";
-        return null;
-    }
-    
-    showCharacterReviewScreen()
-    {
-        this.hideAllScreens();
-        this.characterReviewScreen.style.display = "flex";
-        return null;
-    }
-
-    hideCharacterReviewScreen()
-    {
-        this.characterReviewScreen.style.display = "none";
         return null;
     }
 
     showBattleScreen(player, opponent)
     {
-        this.hideAllScreens();
+        this.showScreen(this.battleScreen);
         // Draw monsters.
         shapes.draw(player.getColor(),
                     player.getShape(),
@@ -162,43 +193,29 @@ class UI
                     opponent.getShape(),
                     this.shapeRadius,
                     this.opponentContext);
-        this.dialog.textContent = "What do you want to do?";
-        this.battleScreen.style.display = "block";
+        this.setBattleInfo("What do you want to do?");
+        this.showMenu(this.battleMenu);
 
         return null;
     }
 
-    hideBattleScreen()
-    {
-        this.battleScreen.style.display = "none";
-        return null;
-    }
-    
     showCompletionScreen(player)
     {
-        this.hideAllScreens();
+        this.showScreen(this.completionScreen);
         document.body.style.background = player.getColor();
-        this.completionScreen.style.display = "flex";
-        return null;
-    }
-
-    hideCompletionScreen()
-    {
-        this.completionScreen.style.display = "none";
         return null;
     }
 
     showGameOverScreen(opponent)
     {
-        this.hideAllScreens();
+        this.showScreen(this.gameOverScreen);
         document.body.style.background = opponent.getColor();
-        this.gameOverScreen.style.display = "flex";
         return null;
     }
 
-    hideGameOverScreen()
+    setBattleInfo(text)
     {
-        this.gameOverScreen.style.display = "none";
+        this.battleInfo.innerHTML = text;
         return null;
     }
 
