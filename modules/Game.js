@@ -91,14 +91,11 @@ class Game
         // (because player initiates battle, also, maybe give enemy + 2 hp).
         // (think about implementing a couple of battles, maybe with healing between).
         // else opponent attacks.
-        console.log(this.opponents[this.currentOpponent]);
         this.player.attack(this.opponents[this.currentOpponent])
         this.sound.hit.play();
         this.updateUI();
         this.opponents[this.currentOpponent].attack(this.player);
         this.sound.hit.play();
-        console.log(this.player);
-        console.log(this.opponents[this.currentOpponent]);
         this.updateUI();
         // Win.
         if (this.opponents[this.currentOpponent].KO)
