@@ -9,7 +9,7 @@
 </head>
 <body>
     <main>
-        <section id="title-screen" class="hide">
+        <section id="title-screen" class="menu hide">
             <p id="title"><h1>Shape Red</h1></p>
             <button id="start-button">Start</button>
         </section>
@@ -23,7 +23,7 @@
             <p></p>
             <p></p>
         </section>
-        <section id="battle-screen" class="hide">
+        <section id="battle-screen">
             <section id="opponent-view" class="monster-view">
                 <section id="opponent-hud" class="hud">
                     <p class="monster-name center">
@@ -61,28 +61,31 @@
                 </section>
             </section>
             <section id="menu-view">
-                <section id="submenu" class="hide">
+                <section id="move-menu" class="menu">
                     <button id="normal-move">NormalMove</button>
                     <button id="special-move">SpecialMove</button>
                 </section>
                 <section id="info-subview">
-                    <p id="info" class="bold center">
+                    <p id="battle-info" class="bold center">
                         What do you want to do?
                     </p>
                 </section>
-                <section id="menu">
+                <section id="confirm-menu" class="menu">
+                    <button id="confirm-button">Confirm</button>
+                </section>
+                <section id="battle-menu" class"menu">
                     <button id="menu-attack">Attack</button>
                     <button id="menu-restart" class="restart-button">Restart</button>
                     <button id="menu-quit">Quit...</button>
                 </section>
             </section>
         </section>  <!--id="battle-screen"-->
-        <section id="completion-screen" class="hide">
+        <section id="completion-screen">
             <p><h1>Game Won!</h1>
             <p>Press 'Restart' to play again!</p>
             <button class="restart-button">Restart</button>
         </section>
-        <section id="game-over-screen" class="hide">
+        <section id="game-over-screen">
             <p><h1>Game Over!</h1></p>
             <p>Press 'Restart' to play again!</p>
             <button class="restart-button">Restart</button>
