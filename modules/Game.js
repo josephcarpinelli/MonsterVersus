@@ -124,7 +124,7 @@ class Game
 
     quitButtonClicked()
     {
-        this.ui.showTitleScreen();
+        this.start();
 
         return null;
     }
