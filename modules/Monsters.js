@@ -6,12 +6,14 @@ class Monster
 {
     constructor(name, hp, power)
     {
+        this.name = name;
         this.MAX_HP = hp;
         this.MAX_ATTACK = power;
-        this.name = name;
+        this.type = "Normal";
 
         this.hp = this.MAX_HP;
         this.power = this.MAX_ATTACK;
+        this.accuracy = 0.80;
         this.KO = false;
     }
 
@@ -28,10 +30,17 @@ class Monster
         return this.KO
     }
 
-    attack(opponent)
+    // Returns true if hit, false if missed.
+    attack(opponent, hpAmount)
     {
-        if (!this.KO && !opponent.KO) { opponent.takeDamage(this.power); }
-        return opponent.KO;
+        if (!this.KO && !opponent.KO
+            && this.accuracy > Math.random())
+        {
+            // Throwing this.KO out for now.
+            opponent.takeDamage(hpAmount, opponent.type);
+            return true;
+        }
+        return false;
     }
 }
 
@@ -45,41 +54,53 @@ class ElementalMonster extends Monster
     {
         super(name, hp, power);
         this.type = type;
-        this.weakTo = this.isWeakTo();
-        this.weakAgainst = this.isWeakAgainst();
-        // this.strongAgainst = this.isStrongAgainst();
+        this.weakTo = this.getWeakTo();
+        this.resistantTo = this.getResistantTo();
+        // this.strongAgainst = this.getStrongAgainst();
     }
 
-    isWeakTo()
+    getWeakTo()
     {
         switch (this.type)
         {
-            case ElementalMonster.FIRE: return ElementalMonster.WATER;
-            case ElementalMonster.WATER: return ElementalMonster.GRASS;
-            case ElementalMonster.GRASS: return ElementalMonster.FIRE;
+            case ElementalMonster.FIRE: return [ElementalMonster.WATER];
+            case ElementalMonster.WATER: return [ElementalMonster.GRASS];
+            case ElementalMonster.GRASS: return [ElementalMonster.FIRE];
             default:
                 console.log(`Error! ${this.type} is not a valid type.`);
                 return null;
         }
     }
 
-    isWeakAgainst()
+    getResistantTo()
     {
-        return this.type;
+        return [this.type];
     }
 
-    // isStrongAgainst()
-    // {
-    //     switch (this.type)
-    //     {
-    //         case ElementalMonster.FIRE: return ElementalMonster.GRASS;
-    //         case ElementalMonster.WATER: return ElementalMonster.FIRE;
-    //         case ElementalMonster.GRASS: return ElementalMonster.WATER;
-    //         default:
-    //             console.log(`Error! ${this.type} is not a valid type.`);
-    //             return null;
-    //     }
+    // // getStrongAgainst()
+    // // {
+    // //     switch (this.type)
+    // //     {
+    // //         case ElementalMonster.FIRE: return [ElementalMonster.GRASS];
+    // //         case ElementalMonster.WATER: return [ElementalMonster.FIRE];
+    // //         case ElementalMonster.GRASS: return [ElementalMonster.WATER];
+    // //         default:
+    // //             console.log(`Error! ${this.type} is not a valid type.`);
+    // //             return null;
+    // //     }
     // }
+
+    isWeakTo(opponent)
+    {
+        if (this.weakTo.includes(opponent.type)) { return true; }
+        return false;
+    }
+
+    isResistantTo(opponent)
+    {
+        if (this.resistantTo.includes(opponent.type)) { return true; }
+        return false;
+    }
     
     getColor()
     {
@@ -107,31 +128,35 @@ class ElementalMonster extends Monster
         }
     }
 
-    getTypeMultiplier(damageType)
+    getTypeMultiplier(opponent)
     {
         // If weak to type, take 150% damage.
-        if (damageType === this.weakTo) { return 1.5; }
+        if (opponent.isWeakTo(this)) { return 1.5; }
         // Else if the damageType and self type are the same, damage is 50%.
-        else if (damageType === this.weakAgainst) { return 0.5; }
+        else if (opponent.isResistantTo(this)) { return 0.5; }
         // All other cases deal unmodified damage at 100%.
         else { return 1.0; }
     }
 
-    takeDamage(hpAmount, damageType)
+    getFinalDamageOn(opponent)
     {
-        const damage = (hpAmount
-                        * this.getTypeMultiplier(damageType));
-        console.log(`${this.name}, `
-                    + `a ${this.type} type, `
-                    + `took ${damage} ${damageType} damage, `
-                    + `due to a damage multiplier of ${damage / hpAmount}.`);
-        return super.takeDamage(damage);
+        return this.power * this.getTypeMultiplier(opponent);
+    }
+
+    getSuccessfulHitText(opponent)
+    {
+        const damage = this.getFinalDamageOn(opponent);
+        const damageMultiplier = this.getTypeMultiplier(opponent);
+        const successfulHitText = `${opponent.name}, `
+                                  + `a ${opponent.type} type, `
+                                  + `took ${damage} ${this.type} damage, `
+                                  + `due to a damage multiplier of ${damageMultiplier}.`;
+        return successfulHitText;
     }
 
     attack(opponent)
     {
-        if (!this.KO && !opponent.KO) { opponent.takeDamage(this.power, this.type); }
-        return opponent.KO;
+        return super.attack(opponent, this.getFinalDamageOn(opponent));
     }
 }
 
