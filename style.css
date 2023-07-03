@@ -49,7 +49,7 @@ main
 
 #character-selection-screen
 {
-    /* display: flex; Hidden by default.*/
+    display: flex;
     justify-content: center;
     align-items: center;
     height: var(--screen-height);
@@ -57,7 +57,7 @@ main
 
 #character-review-screen
 {
-    /* display: flex; Hidden by default.*/
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -66,7 +66,7 @@ main
 
 #completion-screen
 {
-    /* display: flex; Hidden by default.*/
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -75,7 +75,7 @@ main
 
 #game-over-screen
 {
-    /* display: flex; Hidden by default.*/
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -128,6 +128,12 @@ main
     border: var(--debug-border) solid var(--debug-color3);
 }
 
+.menu
+{
+    display: flex;
+    flex-direction: column;
+}
+
 
 button
 {
@@ -151,12 +157,7 @@ button
     float: right;
 }
 
-.show
-{
-    display: flex;
-}
-
 .hide
 {
-    display: none;
+    display: none !important;
 }
