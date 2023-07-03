@@ -11,10 +11,11 @@ class Game
         // this.player = new Monsters.Player();
         this.player = null;
         this.opponents = [];
-        this.currentOpponent = 0;
+        this.opponent = 0;
+        this.currentOpponent = null;
         this.ui = new UI.UI(this);
         this.sound = new Sound.Sound();
-        this.isGameOver = false;
+        this.gameIsOver = false;
     }
 
     spawnOpponents(count)
@@ -33,15 +34,17 @@ class Game
     updateUI()
     {
         // Code to update UI elements based on game state.
-        this.ui.updateHud(this.player, this.opponents[this.currentOpponent]);
+        this.ui.updateHud(this.player, this.currentOpponent);
         
         return null;
     }
 
     setup()
     {
+        // Game is not over, if previously set.
+        this.gameIsOver = false;
         // For each screen, set to hide.
-        this.ui.hideAllScreens();
+        this.ui.hideAll();
         document.body.style.background = "white";
         // Draw Character Selection Screen, get input for it
         // Give Player a Selection between (currently 3) monster types.
@@ -53,6 +56,9 @@ class Game
         // Clear previous opponents.
         this.opponents = [];
         this.spawnOpponents(1);
+        this.currentOpponent = this.opponents[this.opponent];
+
+        return null;
     }
 
     start()
@@ -63,26 +69,52 @@ class Game
         return null;
     }
 
+    startBattle()
+    {
+        this.ui.showBattleScreen(this.player, this.currentOpponent);
+
+        return null;
+    }
+
     gameLoop()
     {
         // Start game loop
-        if (this.isGameOver)
+        if (this.gameIsOver)
         {
             this.endGame();
-
-            return null;
+            // return null;
         }
 
-        // Game loop logic goes here
         // Update player, enemies, handle collisions, etc.
-
-        this.ui.showBattleScreen(this.player, this.opponents[this.currentOpponent]);
         this.updateUI(); // Update UI elements
-        // Draw Game over or Completion screen, get restart input
 
-        // requestAnimationFrame(() => {
-        //     this.gameLoop();
-        // });
+        requestAnimationFrame(() => {
+            this.gameLoop();
+        });
+    }
+
+    checkWinLossState()
+    {
+        const won = this.currentOpponent.KO;  // Win condition.
+        const lost = this.player.KO;  // Loss condition.
+        if (won || lost) this.gameIsOver = true;
+    }
+
+
+    hitAnimation()
+    {
+        this.sound.hit.play();
+        this.updateUI();
+
+        return null;
+    }
+
+    startButtonClicked()
+    {
+        this.startBattle();
+        this.gameLoop();
+
+        return null;
     }
 
     attackButtonClicked()
@@ -91,33 +123,42 @@ class Game
         // (because player initiates battle, also, maybe give enemy + 2 hp).
         // (think about implementing a couple of battles, maybe with healing between).
         // else opponent attacks.
-        this.player.attack(this.opponents[this.currentOpponent])
-        this.sound.hit.play();
-        this.updateUI();
-        this.opponents[this.currentOpponent].attack(this.player);
-        this.sound.hit.play();
-        this.updateUI();
-        // Win.
-        if (this.opponents[this.currentOpponent].KO)
+        // If hit, play hit sound.
+        let dialogInfo = null;
+        if (this.player.attack(this.currentOpponent))
         {
-            this.ui.hideAllScreens();
-            this.ui.showCompletionScreen(this.player);
+            this.hitAnimation();
+            dialogInfo = this.player.getSuccessfulHitText(this.currentOpponent);
         }
-        // Loss.
-        if (this.player.KO)
-        {
-            this.ui.hideAllScreens();
-            this.ui.showGameOverScreen(this.opponents[this.currentOpponent]);
-        }
+        // Miss.
+        else { dialogInfo = `${this.player.name} missed!`; }
+        this.checkWinLossState();
+        this.ui.setBattleInfo(dialogInfo);
+        this.ui.showMenu(this.ui.confirmMenu);
 
         return null;
+    }
+    
+    confirmButtonClicked()
+    {
+        let dialogInfo = null;
+        // If hit, play hit sound.
+        if (this.currentOpponent.attack(this.player))
+        {
+            this.hitAnimation();
+            dialogInfo = this.currentOpponent.getSuccessfulHitText(this.player);
+        }
+        else { dialogInfo = `${this.currentOpponent.name} missed!`; }
+        this.checkWinLossState();
+        this.ui.setBattleInfo(dialogInfo);
+        this.ui.showMenu(this.ui.battleMenu);
     }
 
     restartButtonClicked()
     {
         // Start new game.
         this.setup();
-        this.gameLoop();
+        this.startButtonClicked();
         
         return null;
     }
@@ -131,10 +172,17 @@ class Game
 
     endGame()
     {
-        // Code to handle game over scenario
-        // For example:
-        this.ui.showGameOverScreen();
-        this.sound.gameOver.play();
+        this.ui.hideAll();
+        // Win.
+        if (this.currentOpponent.KO)
+        {
+            this.ui.showCompletionScreen(this.player);
+        }
+        // Loss.
+        if (this.player.KO)
+        {
+            this.ui.showGameOverScreen(this.currentOpponent);
+        }
 
         return null;
     }
