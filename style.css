@@ -1,32 +1,41 @@
 :root
 {
+    /* Constants */
     --screen-width: 95vw;
     --screen-height: 95vh;
+    --screen-width: 100svw;
+    --screen-height: 100svh;
     
     --debug-border: 2px;
     --debug-color1: yellow;
     --debug-color2: blue;
     --debug-color3: red;
 
-    --view-padding: 1rem;
+    --one-rem-in-vw: 0.833vw;
+    --one-rem-in-vh: 1.6vh;
+    --one-rem-in-vw: 0.833svw;
+    --one-rem-in-vh: 1.6svh;
+
+    /* Calculated */
+    --view-padding: var(--one-rem-in-wh);
     
     --monster-view-height: calc(var(--screen-height)  * (3/9));
     --monster-view-section-count: 3;
 
     --menu-view-height: calc(var(--screen-height) * (2/9));
 
-    --subview-width: 18rem;
-    --subview-margin: 0.25rem;
-    --subview-padding: 0.5rem;
+    --subview-width: calc(var(--one-rem-in-vw) * 18);
+    --subview-margin: calc(var(--one-rem-in-vh) * 0.25);
+    --subview-padding: calc(var(--one-rem-in-vh) * 0.5);
     /* --subview-height: fit-content; */
 
-    --hud-border: 0.125rem;
+    --hud-border: calc(var(--one-rem-in-vh) * 0.125);
     --hud-align-self: flex-start;
-    --hud-padding: 0.75rem;
+    --hud-padding: calc(var(--one-rem-in-vh) * 0.75);
     --hud-font-size: var(--hud-font-size);
 
     --sprite-width: calc(var(--screen-width) / 7);
-    --sprite-border: 0.0625rem;
+    --sprite-border: calc(var(--one-rem-in-vh) * 0.0625);
 }
 
 
