@@ -134,7 +134,7 @@ class Game
         else { dialogInfo = `${this.player.name} missed!`; }
         this.checkWinLossState();
         this.ui.setBattleInfo(dialogInfo);
-        this.ui.showMenu(this.ui.confirmMenu);
+        this.ui.showDialog(this.ui.confirmDialog);
 
         return null;
     }
@@ -151,7 +151,7 @@ class Game
         else { dialogInfo = `${this.currentOpponent.name} missed!`; }
         this.checkWinLossState();
         this.ui.setBattleInfo(dialogInfo);
-        this.ui.showMenu(this.ui.battleMenu);
+        this.ui.showDialog(this.ui.battleDialog);
     }
 
     restartButtonClicked()
