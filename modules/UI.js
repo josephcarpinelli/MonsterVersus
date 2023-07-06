@@ -22,13 +22,13 @@ class UI
                         this.battleScreen,
                         this.completionScreen,
                         this.gameOverScreen,];
-        // Menus
-        this.battleMenu = document.getElementById("battle-menu");
-        this.moveMenu = document.getElementById("move-menu");
-        this.confirmMenu = document.getElementById("confirm-menu");
-        this.menus = [this.battleMenu,
-                      this.moveMenu,
-                      this.confirmMenu,];
+        // Dialogs
+        this.battleDialog = document.getElementById("battle-dialog");
+        this.moveDialog = document.getElementById("move-dialog");
+        this.confirmDialog = document.getElementById("confirm-dialog");
+        this.dialogs = [this.battleDialog,
+                      this.moveDialog,
+                      this.confirmDialog,];
         // HUD
         this.opponentName = document.getElementById("opponent-name");
         this.opponentHp = document.getElementById("opponent-hp");
@@ -43,15 +43,15 @@ class UI
         this.playerContext = this.playerCanvas.getContext("2d");
         // Interaction
         this.startButton = document.getElementById("start-button");
-        this.attackButton = document.getElementById("menu-attack");
+        this.attackButton = document.getElementById("attack-button");
         this.confirmButton = document.getElementById("confirm-button");
         this.restartButtons = document.getElementsByClassName("restart-button");
-        this.quitButton = document.getElementById("menu-quit");
+        this.quitButton = document.getElementById("quit-button");
         // Dialogs/info
         this.battleInfo = document.getElementById("battle-info");
 
         // Hard-coded constants.
-        this.shapeRadius = 50;
+        this.shapeRadius = 100;
 
         this.spaceKey = 32;  // Keycode for the space key.
         this.isSpaceKeyPressed = false;
@@ -142,10 +142,10 @@ class UI
         return null;
     }
 
-    showMenu(menu)
+    showDialog(dialog)
     {
-        this.hideAllMenus();
-        this.show(menu);
+        this.hideAllDialogs();
+        this.show(dialog);
         return null;
     }
 
@@ -158,11 +158,11 @@ class UI
         return null;
     }
 
-    hideAllMenus()
+    hideAllDialogs()
     {
-        for (let menu of this.menus)
+        for (let dialog of this.dialogs)
         {
-            this.hide(menu);
+            this.hide(dialog);
         }
         return null;
     }
@@ -170,7 +170,7 @@ class UI
     hideAll()
     {
         this.hideAllScreens();
-        this.hideAllMenus();
+        this.hideAllDialogs();
         return null;
     }
 
@@ -194,7 +194,7 @@ class UI
                     this.shapeRadius,
                     this.opponentContext);
         this.setBattleInfo("What do you want to do?");
-        this.showMenu(this.battleMenu);
+        this.showDialog(this.battleDialog);
 
         return null;
     }
