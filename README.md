@@ -14,6 +14,20 @@ Joseph Carpinelli carpinelli.dev@protonmail.ch.
 
 Download and run in any modern web browser, or use this [GitHub Pages Link](https://josephcarpinelli.github.io/MonsterVersus/).
 
+# Intended Updates
+
+## Monsters
+* Critical Hits
+* Attack Types (Primitive form of moves)
+## Screens
+* Sprite Animations
+* Character Selection Screen
+* Stats Review Screen
+## Style
+* Title screen should have a background sound
+* Title screen should have a background
+* Buttons should look like text with an error next to active selection
+
 # Contributing
 
 This is mostly a class project, but any contributions are welcome and appreciated under individualized forks, provided they align with the licenses and goals of the project. Forking or copying is encouraged, just ensure to uphold the licenses terms.
