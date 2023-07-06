@@ -28,6 +28,7 @@
                 <section id="opponent-hud" class="hud">
                     <p class="monster-name center">
                         <span id="opponent-name">Enemy Monster</span>
+                        <br><br><br>
                     </p>
                     <p class="monster-hp">
                         <span class="bold">HP: </span>
@@ -49,6 +50,7 @@
                 <section id="player-hud" class="hud">
                     <p class="monster-name center">
                         <span id="player-name">Player Monster</span>
+                        <br><br><br>
                     </p>
                     <p class="monster-hp">
                         <span class="bold">HP: </span>
@@ -60,23 +62,23 @@
                     </p>
                 </section>
             </section>
-            <section id="menu-view">
-                <section id="move-menu" class="menu">
-                    <button id="normal-move">NormalMove</button>
-                    <button id="special-move">SpecialMove</button>
-                </section>
-                <section id="info-subview">
+            <section id="dialog-view">
+                <section id="message-box">
                     <p id="battle-info" class="bold center">
                         What do you want to do?
                     </p>
                 </section>
-                <section id="confirm-menu" class="menu">
+                <section id="battle-dialog" class="menu">
+                    <button id="attack-button">Attack</button>
+                    <button id="restart-button" class="restart-button">Restart</button>
+                    <button id="quit-button">Quit...</button>
+                </section>
+                <section id="confirm-dialog" class="menu">
                     <button id="confirm-button">Confirm</button>
                 </section>
-                <section id="battle-menu" class"menu">
-                    <button id="menu-attack">Attack</button>
-                    <button id="menu-restart" class="restart-button">Restart</button>
-                    <button id="menu-quit">Quit...</button>
+                <section id="move-dialog" class="menu">
+                    <button id="normal-move">NormalMove</button>
+                    <button id="special-move">SpecialMove</button>
                 </section>
             </section>
         </section>  <!--id="battle-screen"-->
