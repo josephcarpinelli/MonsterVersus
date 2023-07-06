@@ -2,7 +2,7 @@
 
 A shape versus DOM game meant to look similar in style to the first game in a popular franchise, but much simplified to meet project requirements.
 
-Battle as, and against one of three types of shapes, with each having a unique strength and weakness.
+Battle as, and against, one of three types of shapes, with each having a unique strength and weakness.
 
 Currently missing most functionality like selecting a name, shape type, and multiple rounds of battle.
 
