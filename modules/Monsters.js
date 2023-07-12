@@ -14,6 +14,7 @@ class Monster
         this.hp = this.MAX_HP;
         this.power = this.MAX_ATTACK;
         this.accuracy = 0.80;
+        this.criticalHitChance = 0.10;
         this.KO = false;
     }
 
@@ -30,17 +31,19 @@ class Monster
         return this.KO
     }
 
-    // Returns true if hit, false if missed.
+    // Returns damage dealt, 0 if no hit.
     attack(opponent, hpAmount)
     {
         if (!this.KO && !opponent.KO
-            && this.accuracy > Math.random())
+            && Math.random() <= this.accuracy)
         {
+            if (Math.random() <= this.criticalHitChance)
+            { hpAmount *= 2; }
             // Throwing this.KO out for now.
             opponent.takeDamage(hpAmount, opponent.type);
-            return true;
+            return hpAmount;
         }
-        return false;
+        return 0;
     }
 }
 
