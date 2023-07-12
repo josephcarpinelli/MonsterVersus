@@ -16,9 +16,10 @@
     --border-width: 5px;
     --sprite-border-size: 1px;
     /* Colors */
-    --debug-color1: yellow;
-    --debug-color2: blue;
-    --debug-color3: red;
+    --color1: red;
+    --color2: blue;
+    --color3: green;
+    --color4: yellow;
 
     /* Calculated */
 
@@ -100,7 +101,7 @@ main
     height: var(--monster-view-height);
     padding: var(--padding);
     /* Debug Code: */
-    /* border: var(--border-width) solid var(--debug-color1); */
+    /* border: var(--border-width) solid var(--color4); */
 }
 
 #dialog-view
@@ -116,7 +117,7 @@ main
     width: var(--component-width);
     margin: var(--margin);
     padding: var(--padding);
-    border: var(--border-width) var(--component-border-style) var(--debug-color3);
+    border: var(--border-width) var(--component-border-style) var(--color2);
 }
 
 
@@ -127,7 +128,7 @@ main
     align-self: flex-start;
     width: var(--hud-width);
     padding: var(--padding);
-    line-height: 0.5;  /*What units?*/
+    line-height: 0.5;
     border-bottom: var(--border-width) solid black;
 }
 
