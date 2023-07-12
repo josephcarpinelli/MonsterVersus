@@ -125,7 +125,8 @@ class Game
         // else opponent attacks.
         // If hit, play hit sound.
         let dialogInfo = null;
-        if (this.player.attack(this.currentOpponent))
+        let damage = this.player.attack(this.currentOpponent);
+        if (damage > 0)
         {
             this.hitAnimation();
             dialogInfo = this.player.getSuccessfulHitText(this.currentOpponent);
